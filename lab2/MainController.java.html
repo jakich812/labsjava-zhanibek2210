@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>MainController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">demo</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span class="s2">.</span><span class="s1">bind</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.*;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDateTime</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">format</span><span class="s2">.</span><span class="s1">DateTimeFormatter</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Random</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+
+<span class="s1">@RestController</span>
+<span class="s0">public class </span><span class="s1">MainController </span><span class="s2">{</span>
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/currentTime&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String getCurrentTime</span><span class="s2">() {</span>
+        <span class="s1">DateTimeFormatter formatter </span><span class="s2">= </span><span class="s1">DateTimeFormatter</span><span class="s2">.</span><span class="s1">ofPattern</span><span class="s2">(</span><span class="s3">&quot;yyyy-MM-dd HH:mm:ss w&quot;</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">LocalDateTime</span><span class="s2">.</span><span class="s1">now</span><span class="s2">().</span><span class="s1">format</span><span class="s2">(</span><span class="s1">formatter</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s4">/* 
+    @GetMapping(&quot;/currentTime&quot;) 
+    public int [] getNumbers(@RequestParam(name = &quot;week&quot;)int a ){ 
+        int[] numbers = new int[a]; 
+        for(int i = 1; i&lt; a;i++){ 
+            numbers[i] = i +1; 
+        } 
+        return numbers; 
+    } 
+*/</span>
+
+<span class="s4">/* 
+    @GetMapping(&quot;/api&quot;) 
+    public int[] getNumbers(@RequestParam(name = &quot;q&quot;) int n) { 
+        int[] numbers = new int[n]; 
+        for (int i = 0; i &lt; n; i++) { 
+            numbers[i] = i + 1; 
+        } 
+        return numbers; 
+    } 
+*/</span>
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/random_number&quot;</span><span class="s2">)</span>
+    <span class="s0">public double </span><span class="s1">getRandomNumber</span><span class="s2">() {</span>
+        <span class="s1">Random random </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Random</span><span class="s2">();</span>
+        <span class="s0">return </span><span class="s5">1 </span><span class="s2">+ </span><span class="s1">random</span><span class="s2">.</span><span class="s1">nextDouble</span><span class="s2">() * </span><span class="s5">499</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+
+<span class="s4">/* @GetMapping(&quot;/fib&quot;) 
+    public long getFibonacci(@RequestParam(name = &quot;number&quot;) int n) { 
+        if (n &lt;= 0) return 0; 
+        if (n == 1) return 1; 
+ 
+ 
+        long[] fib = new long[n + 1]; 
+        fib[0] = 0; 
+        fib[1] = 1; 
+ 
+ 
+        for (int i = 2; i &lt;= n; i++) { 
+            fib[i] = fib[i - 1] + fib[i - 2]; 
+        } 
+ 
+        return fib[n]; 
+    }*/</span>
+
+
+
+    <span class="s4">/*@GetMapping(&quot;/fib&quot;) 
+    public long getFibonacci(@RequestParam(name = &quot;number&quot;) int n) { 
+        if (n &lt;= 0) return 0; 
+        if (n == 1) return 1; 
+        long a = 0, b = 1, c; 
+        for (int i = 2; i &lt;= n; i++) { 
+            c = a + b; 
+            a = b; 
+            b = c; 
+        } 
+        return b; 
+    }*/</span>
+
+
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/{string}&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String reverseString</span><span class="s2">(</span><span class="s1">@PathVariable String string</span><span class="s2">) {</span>
+        <span class="s0">return </span><span class="s1">String</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private final int </span><span class="s1">secretNumber </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Random</span><span class="s2">().</span><span class="s1">nextInt</span><span class="s2">(</span><span class="s5">100</span><span class="s2">) + </span><span class="s5">1</span><span class="s2">;</span>
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/game&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String guessNumber</span><span class="s2">(</span><span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;n&quot;</span><span class="s2">) </span><span class="s0">int </span><span class="s1">guessedNumber</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">guessedNumber </span><span class="s2">&lt; </span><span class="s1">secretNumber</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s3">&quot;Ваше число меньше загаданного числа.&quot;</span><span class="s2">;</span>
+        <span class="s2">} </span><span class="s0">else if </span><span class="s2">(</span><span class="s1">guessedNumber </span><span class="s2">&gt; </span><span class="s1">secretNumber</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s3">&quot;Ваше число больше загаданного числа.&quot;</span><span class="s2">;</span>
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s0">return </span><span class="s3">&quot;Поздравляю! Вы угадали число!&quot;</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/number&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String getNumber</span><span class="s2">(</span><span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;n&quot;</span><span class="s2">) </span><span class="s0">int </span><span class="s1">n</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">n </span><span class="s2">&gt;= </span><span class="s5">1 </span><span class="s2">&amp;&amp; </span><span class="s1">n </span><span class="s2">&lt;= </span><span class="s5">10</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s3">&quot;Ваше число: &quot; </span><span class="s2">+ </span><span class="s1">n</span><span class="s2">;</span>
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s0">return </span><span class="s3">&quot;у вас цифра выходит за рамки дозволенного !&quot;</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/api&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Integer</span><span class="s2">&gt; </span><span class="s1">getNumbers</span><span class="s2">(</span><span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;q&quot;</span><span class="s2">) </span><span class="s0">int </span><span class="s1">n</span><span class="s2">) {</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Integer</span><span class="s2">&gt; </span><span class="s1">numbers </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s5">1</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt;= </span><span class="s1">n</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s1">numbers</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">numbers</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/fib&quot;</span><span class="s2">)</span>
+    <span class="s0">public long </span><span class="s1">getFibonacci</span><span class="s2">(</span><span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;number&quot;</span><span class="s2">)</span><span class="s0">int </span><span class="s1">n</span><span class="s2">){</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">n</span><span class="s2">&lt;=</span><span class="s5">0</span><span class="s2">) </span><span class="s0">return </span><span class="s5">0</span><span class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">n</span><span class="s2">==</span><span class="s5">1</span><span class="s2">) </span><span class="s0">return </span><span class="s5">1</span><span class="s2">;</span>
+
+        <span class="s0">long</span><span class="s2">[] </span><span class="s1">fib </span><span class="s2">= </span><span class="s0">new long</span><span class="s2">[</span><span class="s1">n </span><span class="s2">+ </span><span class="s5">1</span><span class="s2">];</span>
+        <span class="s1">fib</span><span class="s2">[</span><span class="s5">0</span><span class="s2">] = </span><span class="s5">0</span><span class="s2">;</span>
+        <span class="s1">fib</span><span class="s2">[</span><span class="s5">1</span><span class="s2">] = </span><span class="s5">1</span><span class="s2">;</span>
+
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s5">2</span><span class="s2">; </span><span class="s1">i</span><span class="s2">&lt;=</span><span class="s1">n</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++){</span>
+            <span class="s1">fib</span><span class="s2">[</span><span class="s1">i</span><span class="s2">] = </span><span class="s1">fib</span><span class="s2">[</span><span class="s1">i</span><span class="s2">-</span><span class="s5">1</span><span class="s2">]+</span><span class="s1">fib</span><span class="s2">[</span><span class="s1">i</span><span class="s2">-</span><span class="s5">2</span><span class="s2">];</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">fib</span><span class="s2">[</span><span class="s1">n</span><span class="s2">];</span>
+    <span class="s2">}</span>
+
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/primes&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Integer</span><span class="s2">&gt; </span><span class="s1">getPrimes</span><span class="s2">(</span><span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">name </span><span class="s2">= </span><span class="s3">&quot;n&quot;</span><span class="s2">) </span><span class="s0">int </span><span class="s1">n</span><span class="s2">) {</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Integer</span><span class="s2">&gt; </span><span class="s1">primes </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s5">2</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt;= </span><span class="s1">n</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">isPrime</span><span class="s2">(</span><span class="s1">i</span><span class="s2">)) {</span>
+                <span class="s1">primes</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">i</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">primes</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+
+    <span class="s0">private boolean </span><span class="s1">isPrime</span><span class="s2">(</span><span class="s0">int </span><span class="s1">num</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">num </span><span class="s2">&lt; </span><span class="s5">2</span><span class="s2">) </span><span class="s0">return false</span><span class="s2">;</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s5">2</span><span class="s2">; </span><span class="s1">i </span><span class="s2">* </span><span class="s1">i </span><span class="s2">&lt;= </span><span class="s1">num</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">num </span><span class="s2">% </span><span class="s1">i </span><span class="s2">== </span><span class="s5">0</span><span class="s2">) {</span>
+                <span class="s0">return false</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return true</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+
+</pre>
+</body>
+</html>
